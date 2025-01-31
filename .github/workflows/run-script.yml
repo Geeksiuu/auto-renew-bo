@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install selenium
+          pip install selenium webdriver-manager
 
       - name: Install Chrome
         run: |
@@ -25,14 +25,6 @@ jobs:
           sudo apt install -y wget unzip
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
-
-      - name: Install ChromeDriver
-        run: |
-          CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d. -f1-3)
-          wget https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/bin/chromedriver
-          sudo chmod +x /usr/bin/chromedriver
 
       - name: Run script
         run: python renew_button.py
