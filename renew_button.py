@@ -12,7 +12,7 @@ chrome_options.add_argument("--headless=new")  # Ejecutar en segundo plano
 chrome_options.add_argument("--disable-gpu")  # Desactivar GPU para mejor rendimiento
 chrome_options.add_argument("--no-sandbox")  # Necesario para entornos sin interfaz gráfica
 
-# Usa WebDriver Manager para manejar ChromeDriver
+# Usa WebDriver Manager para manejar ChromeDriver y pasar las opciones
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
 try:
