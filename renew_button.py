@@ -47,7 +47,9 @@ try:
     login_button.click()
 
     # Esperar a que se inicie la sesión
-    time.sleep(5)
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "server-d244c239"))
+    )
 
     # Intentar hacer clic en el botón del servidor
     server_button = WebDriverWait(driver, 10).until(
@@ -56,7 +58,9 @@ try:
     server_button.click()
 
     # Esperar a que la página del servidor cargue
-    time.sleep(5)
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.XPATH, "//a[contains(@class, 'billing-button') and contains(@class, 'renew')]"))
+    )
 
     # Clic en el botón "RENEW"
     renew_button = WebDriverWait(driver, 10).until(
