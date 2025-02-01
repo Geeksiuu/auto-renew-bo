@@ -1,14 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Configura el navegador
-chrome_options = Options()
+chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--headless=new")  # Ejecutar en segundo plano
 chrome_options.add_argument("--disable-gpu")  # Desactivar GPU para mejor rendimiento
 chrome_options.add_argument("--no-sandbox")  # Necesario para entornos sin interfaz gráfica
