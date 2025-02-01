@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import os
+import tempfile
 
 # Cargar credenciales desde variables de entorno
 USERNAME = os.getenv("MC_USERNAME", "")
@@ -22,7 +23,8 @@ chrome_options.add_argument("--headless")  # Ejecutar en segundo plano
 chrome_options.add_argument("--disable-gpu")  # Desactivar GPU para mejor rendimiento
 chrome_options.add_argument("--no-sandbox")  # Necesario para entornos sin interfaz gráfica
 chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument(f"--user-data-dir=/tmp/chrome_user_data_{os.getpid()}")
+user_data_dir = tempfile.mkdtemp()
+chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
 # Inicializar WebDriver
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
@@ -75,3 +77,6 @@ except Exception as e:
 finally:
     # Cerrar el navegador
     driver.quit()
+    # Eliminar el directorio temporal
+    import shutil
+    shutil.rmtree(user_data_dir)
