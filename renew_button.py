@@ -57,9 +57,9 @@ try:
     time.sleep(5)  # Esperar carga de página
 
     # Clic en el botón "RENEW"
-    renew_button = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "//a[contains(@class, 'billing-button') and contains(@class, 'renew')]"))
-    )
+  login_button = WebDriverWait(driver, 10).until(
+    EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Iniciar sesión')]"))
+)
     renew_button.click()
 
     print("Botón RENEW presionado correctamente.")
