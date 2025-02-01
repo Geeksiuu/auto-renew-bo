@@ -1,38 +1,28 @@
-name: Run Selenium Script
+name: Renew Button
 
 on:
   schedule:
-    - cron: '*/50 * * * *'  # Ejecutar cada 50 minutos
-
-  # Puedes mantener el trigger de push y pull_request si también quieres ejecutar el flujo manualmente
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    # Ejecutar cada 50 minutos
+    - cron: '*/50 * * * *'
 
 jobs:
-  run-selenium:
+  renew:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Check out the repository
+      uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install selenium webdriver-manager
+    - name: Install dependencies
+      run: pip install selenium webdriver-manager
 
-      - name: Run Selenium script
-        env:
-          MC_USERNAME: ${{ secrets.MC_USERNAME }}
-          MC_PASSWORD: ${{ secrets.MC_PASSWORD }}
-        run: |
-          python renew_button.py
+    - name: Run renew_button.py
+      env:
+        MC_USERNAME: ${{ secrets.MC_USERNAME }}
+        MC_PASSWORD: ${{ secrets.MC_PASSWORD }}
+      run: python renew_button.py
