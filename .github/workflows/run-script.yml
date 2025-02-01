@@ -27,4 +27,4 @@ jobs:
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
       - name: Run script
-        run: python renew_button.py
+        run: python renew_server.py
