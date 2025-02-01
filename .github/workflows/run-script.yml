@@ -25,7 +25,7 @@ jobs:
             unzip \
             fontconfig \
             locales \
-            libasound2 \
+            libasound2t64 \  # Usa libasound2t64 en lugar de libasound2
             libatk1.0-0 \
             libc6 \
             libcairo2 \
