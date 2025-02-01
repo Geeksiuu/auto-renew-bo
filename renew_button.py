@@ -27,6 +27,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
 
 try:
+    # Abrir la página de inicio de sesión
     driver.get(LOGIN_URL)
     
     # Esperar y localizar los elementos
@@ -38,7 +39,7 @@ try:
     )
     login_button = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Iniciar sesión')]"))
-    ))
+    )
 
     # Ingresar credenciales
     username_field.send_keys(USERNAME)
@@ -54,16 +55,18 @@ try:
     )
     server_button.click()
 
-    time.sleep(5)  # Esperar carga de página
+    # Esperar a que la página del servidor cargue
+    time.sleep(5)
 
     # Clic en el botón "RENEW"
-  login_button = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Iniciar sesión')]"))
-)
+    renew_button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, "//a[contains(@class, 'billing-button') and contains(@class, 'renew')]"))
+    )
     renew_button.click()
 
     print("Botón RENEW presionado correctamente.")
 except Exception as e:
     print(f"Error: {e}")
 finally:
+    # Cerrar el navegador
     driver.quit()
