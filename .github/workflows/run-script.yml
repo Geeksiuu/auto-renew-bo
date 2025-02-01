@@ -1,28 +1,25 @@
-name: Renew Button
+name: Ejecutar script cada 1 minuto
 
 on:
   schedule:
-    # Ejecutar cada 50 minutos
-    - cron: '*/50 * * * *'
+    # Ejecuta el workflow cada 1 minuto
+    - cron: '*/1 * * * *'
 
 jobs:
-  renew:
+  run-script:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out the repository
-      uses: actions/checkout@v2
+      - name: Checkout del repositorio
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-    - name: Install dependencies
-      run: pip install selenium webdriver-manager
+      - name: Instalar dependencias
+        run: npm install
 
-    - name: Run renew_button.py
-      env:
-        MC_USERNAME: ${{ secrets.MC_USERNAME }}
-        MC_PASSWORD: ${{ secrets.MC_PASSWORD }}
-      run: python renew_button.py
+      - name: Ejecutar script con Puppeteer
+        run: node click-renew.js
