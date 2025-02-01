@@ -20,9 +20,9 @@ try:
     # Abre la página web
     driver.get("https://www.mcserverhost.com/servers/d244c239/dashboard")
 
-    # Espera a que el botón esté presente en la página
+    # Espera a que el botón sea clickeable
     boton = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "billing-button.renew.pseudo"))
+        EC.element_to_be_clickable((By.XPATH, "//a[contains(@class, 'billing-button') and contains(@class, 'renew')]"))
     )
     boton.click()
 
