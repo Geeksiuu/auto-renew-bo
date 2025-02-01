@@ -1,10 +1,10 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const browser = await puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    headless: false, // Cambia a true si no necesitas ver el navegador
-  });
+const browser = await puppeteer.launch({
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  headless: true, // Asegúrate de que esté en true
+});
   const page = await browser.newPage();
 
   // Navega a la página de inicio de sesión
