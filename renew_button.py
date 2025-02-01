@@ -3,18 +3,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-# Configura el navegador en modo headless (sin interfaz gráfica)
+# Configura el navegador
 chrome_options = Options()
 chrome_options.add_argument("--headless=new")  # Ejecutar en segundo plano
 chrome_options.add_argument("--disable-gpu")  # Desactivar GPU para mejor rendimiento
 chrome_options.add_argument("--no-sandbox")  # Necesario para entornos sin interfaz gráfica
 
 # Usa WebDriver Manager para manejar ChromeDriver
-service = webdriver.ChromeService(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=chrome_options)
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
 
 try:
     # Abre la página de inicio de sesión
