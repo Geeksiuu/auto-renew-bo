@@ -9,8 +9,8 @@ import time
 import os
 
 # Cargar credenciales desde variables de entorno
-USERNAME = os.getenv("MC_USERNAME", "")
-PASSWORD = os.getenv("MC_PASSWORD", "")
+USERNAME = os.getenv("MC_USERNAME", "Gejjk")
+PASSWORD = os.getenv("MC_PASSWORD", "7SrVLWA_npw_GQd")
 LOGIN_URL = "https://www.mcserverhost.com/login"
 
 if not USERNAME or not PASSWORD:
@@ -41,8 +41,8 @@ try:
     ))
 
     # Ingresar credenciales
-    username_field.send_keys("Gejjk")
-    password_field.send_keys("7SrVLWA_npw_GQd")
+    username_field.send_keys("MC_USERNAME")
+    password_field.send_keys("MC_USERNAME")
     login_button.click()
 
     # Esperar a que se inicie la sesión
