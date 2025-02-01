@@ -1,25 +1,28 @@
-name: Ejecutar script cada 1 minuto
+name: Run Puppeteer Script
 
 on:
+  push:
+    branches:
+      - main  # Ejecuta el workflow cuando se hace push a la rama main
+  workflow_dispatch:  # Permite ejecutar el workflow manualmente
   schedule:
-    # Ejecuta el workflow cada 1 minuto
-    - cron: '*/1 * * * *'
+    - cron: '*/5 * * * *'  # Ejecuta el workflow cada 5 minutos
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout del repositorio
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Configurar Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18  # Usa una versión de Node.js compatible con Puppeteer
 
-      - name: Instalar dependencias
+      - name: Install dependencies
         run: npm install
 
-      - name: Ejecutar script con Puppeteer
-        run: node click-renew.js
+      - name: Run Puppeteer script
+        run: npm start
