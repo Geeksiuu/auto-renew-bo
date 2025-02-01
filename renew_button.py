@@ -18,10 +18,11 @@ if not USERNAME or not PASSWORD:
 
 # Configurar opciones del navegador
 chrome_options = Options()
-# chrome_options.add_argument("--headless")  # Ejecutar en segundo plano
+chrome_options.add_argument("--headless")  # Ejecutar en segundo plano
 chrome_options.add_argument("--disable-gpu")  # Desactivar GPU para mejor rendimiento
 chrome_options.add_argument("--no-sandbox")  # Necesario para entornos sin interfaz gráfica
 chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument(f"--user-data-dir=/tmp/chrome_user_data_{os.getpid()}")
 
 # Inicializar WebDriver
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
