@@ -44,11 +44,17 @@ try:
     # Haz clic en el botón de inicio de sesión
     login_button.click()
 
-    # Espera a que la sesión se inicie y redirija al dashboard
+    # Espera a que la sesión se inicie y redirija a la página principal
     time.sleep(5)  # Ajusta este tiempo si es necesario
 
-    # Abre la página del dashboard
-    driver.get("https://www.mcserverhost.com/servers/d244c239/dashboard")
+    # Haz clic en el botón del servidor
+    server_button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.ID, "server-d244c239"))  # Botón del servidor
+    )
+    server_button.click()
+
+    # Espera a que la página del servidor cargue
+    time.sleep(5)  # Ajusta este tiempo si es necesario
 
     # Espera a que el botón "RENEW" sea clickeable
     renew_button = WebDriverWait(driver, 10).until(
