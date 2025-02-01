@@ -1,33 +1,32 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+
+puppeteer.use(StealthPlugin());
 
 (async () => {
-  const browser = await puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    headless: true, 
-  });
-
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
-  await page.goto('https://www.mcserverhost.com/login', { waitUntil: 'networkidle2' });
+  
+  await page.goto('https://www.mcserverhost.com/login', { waitUntil: 'load', timeout: 60000 });
 
-  // Esperar y escribir usuario y contraseña
-  await page.waitForSelector('#auth-username', { timeout: 10000 });
+  console.log("Página cargada.");
+
+  // Ingresar credenciales
   await page.type('#auth-username', 'Gejjk');
-
-  await page.waitForSelector('#auth-password', { timeout: 10000 });
   await page.type('#auth-password', '7SrVLWA_npw_GQd');
 
-  // Intentar encontrar y hacer clic en el botón de login
+  // Intentar hacer clic en el botón usando evaluate()
   try {
-    await page.waitForXPath("//button[contains(text(), 'Iniciar sesión')]", { timeout: 10000 });
-    const [loginButton] = await page.$x("//button[contains(text(), 'Iniciar sesión')]");
-    await loginButton.click();
+    await page.evaluate(() => {
+      document.querySelector('button[action="login"]').click();
+    });
+    console.log("Botón LOGIN presionado.");
   } catch (error) {
-    console.log("No se encontró el botón de inicio de sesión.");
+    console.log("No se pudo hacer clic en el botón LOGIN.");
   }
 
-  await page.waitForNavigation({ waitUntil: 'networkidle2' });
+  await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 60000 });
 
   console.log("Sesión iniciada correctamente.");
   await browser.close();
 })();
-
