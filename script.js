@@ -17,10 +17,10 @@ const puppeteer = require('puppeteer');
   // Llena el campo de contraseña
   await page.type('#auth-password', '7SrVLWA_npw_GQd'); // Reemplaza con tu contraseña
 
-  // Si hay un reCAPTCHA, haz clic en él (esto es un ejemplo básico)
+  // Si hay un reCAPTCHA, haz clic en él
   try {
-    await page.waitForSelector('.recaptcha-checkbox-border', { timeout: 5000 });
-    await page.click('.recaptcha-checkbox-border');
+    await page.waitForSelector('.recaptcha-checkbox-checkmark', { timeout: 5000 });
+    await page.click('.recaptcha-checkbox-checkmark');
     console.log("reCAPTCHA resuelto.");
   } catch (error) {
     console.log("No se encontró el reCAPTCHA o no fue necesario.");
