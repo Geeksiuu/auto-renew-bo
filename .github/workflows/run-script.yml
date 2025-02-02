@@ -1,4 +1,4 @@
-name: Run Puppeteer Script
+name: Run Puppeteer Script 
 
 on:
   push:
