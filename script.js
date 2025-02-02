@@ -49,12 +49,9 @@ const puppeteer = require('puppeteer');
     console.log("No se encontró el botón RENEW.");
   }
 
-  // Captura una screenshot para depuración
-  await page.screenshot({ path: 'screenshot.png' });
-  console.log("Captura de pantalla guardada como screenshot.png");
-
   // Cierra el navegador
   await browser.close();
 })();
+
 
 
