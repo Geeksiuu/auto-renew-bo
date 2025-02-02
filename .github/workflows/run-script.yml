@@ -1,25 +1,24 @@
-name: Auto Renew Every 5 Minutes
+name: Run Puppeteer Script
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Ejecuta cada 5 minutos
-  workflow_dispatch:  # Permite ejecutar manualmente desde GitHub Actions
+    - cron: '*/5 * * * *'  # Esto ejecuta el flujo de trabajo cada 5 minutos
 
 jobs:
   run-script:
-    runs-on: ubuntu-latest  # Usa un contenedor de Ubuntu para ejecutar el script
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Clona el repositorio
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3  # Configura Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Puedes ajustar la versión si es necesario
+          node-version: 18
 
       - name: Install dependencies
-        run: npm install  # Instala las dependencias del proyecto
+        run: npm install
 
       - name: Run Puppeteer script
-        run: node script.js  # Ejecuta el script
+        run: node script.js
