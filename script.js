@@ -17,10 +17,10 @@ const puppeteer = require('puppeteer');
   // Llena el campo de contraseña
   await page.type('#auth-password', '7SrVLWA_npw_GQd'); // Reemplaza con tu contraseña
 
-  // Si hay un reCAPTCHA, haz clic en él
+  // Si hay un reCAPTCHA, haz clic en él (esto es un ejemplo básico)
   try {
-    await page.waitForSelector('.recaptcha-checkbox-checkmark', { timeout: 5000 });
-    await page.click('.recaptcha-checkbox-checkmark');
+    await page.waitForSelector('.recaptcha-checkbox-border', { timeout: 5000 });
+    await page.click('.recaptcha-checkbox-border');
     console.log("reCAPTCHA resuelto.");
   } catch (error) {
     console.log("No se encontró el reCAPTCHA o no fue necesario.");
@@ -37,9 +37,12 @@ const puppeteer = require('puppeteer');
   // Navega a la página donde está el botón "RENEW"
   await page.goto('https://www.mcserverhost.com/servers/d244c239/dashboard'); // Reemplaza con la URL de la página del botón
 
-  // Espera indefinidamente hasta que el botón "RENEW" esté disponible y haz clic en él
+  // Espera a que la página cargue completamente antes de interactuar
+  await page.waitForTimeout(2000); // Espera 2 segundos para que la página cargue completamente
+
+  // Espera a que el botón "RENEW" esté visible y haz clic en él
   try {
-    await page.waitForSelector('a.billing-button.renew.pseudo'); // Sin timeout, espera indefinidamente
+    await page.waitForSelector('a.billing-button.renew.pseudo', { visible: true });
     await page.click('a.billing-button.renew.pseudo');
     console.log("Botón RENEW presionado correctamente.");
   } catch (error) {
