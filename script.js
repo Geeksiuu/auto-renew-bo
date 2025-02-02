@@ -38,7 +38,7 @@ const puppeteer = require('puppeteer');
   await page.goto('https://www.mcserverhost.com/servers/d244c239/dashboard'); // Reemplaza con la URL de la página del botón
 
   // Espera 2 segundos para que la página cargue completamente
-  await page.waitForTimeout(2000); // Espera 2 segundos antes de buscar el botón "RENEW"
+  await page.waitFor(2000); // Espera 2 segundos antes de buscar el botón "RENEW"
 
   // Espera indefinidamente hasta que el botón "RENEW" esté disponible y haz clic en él
   try {
@@ -56,3 +56,4 @@ const puppeteer = require('puppeteer');
   // Cierra el navegador
   await browser.close();
 })();
+
