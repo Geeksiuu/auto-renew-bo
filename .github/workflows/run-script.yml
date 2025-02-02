@@ -1,8 +1,12 @@
 name: Run Puppeteer Script
 
 on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
   schedule:
-    - cron: '*/7 * * * *'  # Ejecuta el flujo de trabajo cada 7 minutos
+    - cron: '*/5 * * * *'  # Ejecuta cada 5 minutos
 
 jobs:
   run-script:
@@ -12,13 +16,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
       - name: Install dependencies
         run: npm install
+
+      - name: Install Puppeteer Extra Plugins
+        run: npm install puppeteer-extra puppeteer-extra-plugin-stealth
 
       - name: Run Puppeteer script
         run: node script.js
