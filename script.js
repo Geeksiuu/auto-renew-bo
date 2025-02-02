@@ -37,9 +37,9 @@ const puppeteer = require('puppeteer');
   // Navega a la página donde está el botón "RENEW"
   await page.goto('https://www.mcserverhost.com/servers/d244c239/dashboard'); // Reemplaza con la URL de la página del botón
 
-  // Espera a que el botón "RENEW" esté disponible y haz clic en él
+  // Espera indefinidamente hasta que el botón "RENEW" esté disponible y haz clic en él
   try {
-    await page.waitForSelector('a.billing-button.renew.pseudo', { timeout: 5000 });
+    await page.waitForSelector('a.billing-button.renew.pseudo'); // Sin timeout, espera indefinidamente
     await page.click('a.billing-button.renew.pseudo');
     console.log("Botón RENEW presionado correctamente.");
   } catch (error) {
