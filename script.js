@@ -3,19 +3,19 @@ const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    headless: true, // Asegúrate de que esté en true
+    headless: true,
   });
 
   const page = await browser.newPage();
 
   // Navega a la página de inicio de sesión
-  await page.goto('https://www.mcserverhost.com/login'); // Reemplaza con la URL de la página de inicio de sesión
+  await page.goto('https://www.mcserverhost.com/login');
 
   // Llena el campo de usuario
-  await page.type('#auth-username', 'Gejjk'); // Reemplaza con tu usuario
+  await page.type('#auth-username', 'Gejjk');
 
   // Llena el campo de contraseña
-  await page.type('#auth-password', '7SrVLWA_npw_GQd'); // Reemplaza con tu contraseña
+  await page.type('#auth-password', '7SrVLWA_npw_GQd');
 
   // Si hay un reCAPTCHA, haz clic en él (esto es un ejemplo básico)
   try {
@@ -35,10 +35,10 @@ const puppeteer = require('puppeteer');
   console.log("Sesión iniciada correctamente.");
 
   // Navega a la página donde está el botón "RENEW"
-  await page.goto('https://www.mcserverhost.com/servers/d244c239/dashboard'); // Reemplaza con la URL de la página del botón
+  await page.goto('https://www.mcserverhost.com/servers/d244c239/dashboard');
 
-  // Espera 2 segundos para que la página cargue completamente
-  await page.waitForTimeout(2000); // Espera 2 segundos antes de buscar el botón "RENEW"
+  // Espera 2 segundos antes de buscar el botón "RENEW" (usando setTimeout)
+  await new Promise(resolve => setTimeout(resolve, 2000));
 
   // Espera indefinidamente hasta que el botón "RENEW" esté disponible y haz clic en él
   try {
@@ -56,4 +56,5 @@ const puppeteer = require('puppeteer');
   // Cierra el navegador
   await browser.close();
 })();
+
 
