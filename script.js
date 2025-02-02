@@ -1,32 +1,55 @@
-const puppeteer = require('puppeteer-extra');
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-
-puppeteer.use(StealthPlugin());
+const puppeteer = require('puppeteer');
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    headless: true, // Asegúrate de que esté en true
+  });
+
   const page = await browser.newPage();
-  
-  await page.goto('https://www.mcserverhost.com/login', { waitUntil: 'load', timeout: 60000 });
 
-  console.log("Página cargada.");
+  // Navega a la página de inicio de sesión
+  await page.goto('https://www.mcserverhost.com/login'); // Reemplaza con la URL de la página de inicio de sesión
 
-  // Ingresar credenciales
-  await page.type('#auth-username', 'Gejjk');
-  await page.type('#auth-password', '7SrVLWA_npw_GQd');
+  // Llena el campo de usuario
+  await page.type('#auth-username', 'Gejjk'); // Reemplaza con tu usuario
 
-  // Intentar hacer clic en el botón usando evaluate()
+  // Llena el campo de contraseña
+  await page.type('#auth-password', '7SrVLWA_npw_GQd'); // Reemplaza con tu contraseña
+
+  // Si hay un reCAPTCHA, haz clic en él (esto es un ejemplo básico)
   try {
-    await page.evaluate(() => {
-      document.querySelector('button[action="login"]').click();
-    });
-    console.log("Botón LOGIN presionado.");
+    await page.waitForSelector('.recaptcha-checkbox-border', { timeout: 5000 });
+    await page.click('.recaptcha-checkbox-border');
+    console.log("reCAPTCHA resuelto.");
   } catch (error) {
-    console.log("No se pudo hacer clic en el botón LOGIN.");
+    console.log("No se encontró el reCAPTCHA o no fue necesario.");
   }
 
-  await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 60000 });
+  // Haz clic en el botón de inicio de sesión
+  await page.click('button[action="login"]');
+
+  // Espera a que la navegación termine (redirección después del inicio de sesión)
+  await page.waitForNavigation();
 
   console.log("Sesión iniciada correctamente.");
+
+  // Navega a la página donde está el botón "RENEW"
+  await page.goto('https://www.mcserverhost.com/servers/d244c239/dashboard'); // Reemplaza con la URL de la página del botón
+
+  // Espera a que el botón "RENEW" esté disponible y haz clic en él
+  try {
+    await page.waitForSelector('a.billing-button.renew.pseudo', { timeout: 5000 });
+    await page.click('a.billing-button.renew.pseudo');
+    console.log("Botón RENEW presionado correctamente.");
+  } catch (error) {
+    console.log("No se encontró el botón RENEW.");
+  }
+
+  // Captura una screenshot para depuración
+  await page.screenshot({ path: 'screenshot.png' });
+  console.log("Captura de pantalla guardada como screenshot.png");
+
+  // Cierra el navegador
   await browser.close();
 })();
