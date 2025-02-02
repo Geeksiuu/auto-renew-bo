@@ -1,75 +1,25 @@
-name: Run Puppeteer Script
+name: Auto Renew Every 5 Minutes
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Ejecutar cada 5 minutos
-  workflow_dispatch:  # Permite ejecutar manualmente el workflow
+    - cron: '*/5 * * * *'  # Ejecuta cada 5 minutos
+  workflow_dispatch:  # Permite ejecutar manualmente desde GitHub Actions
 
 jobs:
   run-script:
-    runs-on: ubuntu-latest  # Usar la última versión de Ubuntu
+    runs-on: ubuntu-latest  # Usa un contenedor de Ubuntu para ejecutar el script
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Verifica el código fuente del repositorio
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libgbm-dev \
-            wget \
-            unzip \
-            fontconfig \
-            locales \
-            libasound2t64 \
-            libatk1.0-0 \
-            libc6 \
-            libcairo2 \
-            libcups2 \
-            libdbus-1-3 \
-            libexpat1 \
-            libfontconfig1 \
-            libgcc1 \
-            libgdk-pixbuf2.0-0 \
-            libglib2.0-0 \
-            libgtk-3-0 \
-            libnspr4 \
-            libpango-1.0-0 \
-            libpangocairo-1.0-0 \
-            libstdc++6 \
-            libx11-6 \
-            libx11-xcb1 \
-            libxcb1 \
-            libxcomposite1 \
-            libxcursor1 \
-            libxdamage1 \
-            libxext6 \
-            libxfixes3 \
-            libxi6 \
-            libxrandr2 \
-            libxrender1 \
-            libxss1 \
-            libxtst6 \
-            ca-certificates \
-            fonts-liberation \
-            libnss3 \
-            lsb-release \
-            xdg-utils
+        uses: actions/checkout@v3  # Clona el repositorio
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3  # Configura Node.js
         with:
-          node-version: 18  # Usa la versión de Node.js que prefieras
+          node-version: '18'  # Puedes ajustar la versión si es necesario
 
-      - name: Install puppeteer dependencies
-        run: |
-          npm install puppeteer-extra puppeteer-extra-plugin-stealth
-          npm install puppeteer
+      - name: Install dependencies
+        run: npm install  # Instala las dependencias del proyecto
 
       - name: Run Puppeteer script
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-        run: node script.js  # Asegúrate de que el archivo se llame 'script.js' o el nombre correcto
-
+        run: node script.js  # Ejecuta el script
