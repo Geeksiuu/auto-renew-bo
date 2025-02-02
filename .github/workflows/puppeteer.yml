@@ -3,10 +3,10 @@ name: Run Puppeteer Script
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - main  # Se ejecutará cuando se haga un push en la rama principal
+  workflow_dispatch:  # Permite ejecutar manualmente desde la interfaz de GitHub
   schedule:
-    - cron: '0 */50 * * *'  # Ejecuta cada 50 minutos
+    - cron: '*/7 * * * *'  # Ejecuta cada 7 minutos
 
 jobs:
   run-script:
@@ -14,12 +14,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Usa la versión más reciente de actions/checkout
+        uses: actions/checkout@v2  # Utiliza una versión estable de actions/checkout
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Usa la versión de Node.js que prefieras
+          node-version: '16'  # Usa la versión de Node.js que prefieras, o la que sea compatible con tu proyecto
 
       - name: Install dependencies
         run: npm install  # Instala las dependencias del proyecto
