@@ -6,7 +6,7 @@ on:
       - main  # Se ejecutará cuando se haga un push en la rama principal
   workflow_dispatch:  # Permite ejecutar manualmente desde la interfaz de GitHub
   schedule:
-    - cron: '*/58 * * * *'  # Ejecuta cada 5 minutos
+    - cron: '*/55 * * * *'  # Ejecuta cada 5 minutos
 
 jobs:
   run-script:
